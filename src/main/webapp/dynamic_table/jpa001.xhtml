@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <title>Facelet Title</title>
+  </h:head>
+  <h:body>
+    <h:form>
+      <p:commandButton id="standardOutputButton" value="標準出力" actionListener="" />
+      <p:dataTable id="dataList" widgetVar="customerTable"
+                   value="#{jpa001Bean.customerList}" var="result"
+                   resizableColumns="true" liveResize="true"
+                   filteredValue="#{jpa001Bean.filteredCustomerList}">
+        <f:facet name="header">
+          <p:outputPanel>
+            <p:inputText id="globalFilter" onkeyup="PF('customerTable').filter()" style="width:400px" placeholder="全列検索"/>
+            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+            <p:columnToggler datasource="dataList" trigger="toggler" />        
+          </p:outputPanel>        
+        </f:facet>
+        <p:column sortBy="#{result.customerId}" filterBy="#{result.customerId}">
+          <f:facet name="header">
+            <h:outputText value="CUSTOMER_ID" />
+          </f:facet>
+          <h:outputText value="#{result.customerId}" />
+        </p:column>
+        <p:column sortBy="#{result.zip.zipCode}" filterBy="#{result.zip}">
+          <f:facet name="header">
+            <h:outputText value="ZIP" />
+          </f:facet>
+          <h:outputText value="#{result.zip.zipCode}" />
+        </p:column>
+        <p:column sortBy="#{result.name}" filterBy="#{result.name}">
+          <f:facet name="header">
+            <h:outputText value="NAME" />
+          </f:facet>
+          <h:outputText value="#{result.name}" />
+        </p:column>
+        <p:column  sortBy="#{result.addressline1}" filterBy="#{result.addressline1}">
+          <f:facet name="header">
+            <h:outputText value="ADDRESSLINE1" />
+          </f:facet>
+          <h:outputText value="#{result.addressline1}" />
+        </p:column>
+      </p:dataTable>
+    </h:form>
+  </h:body>
+</html>
+
